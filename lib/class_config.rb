@@ -1,6 +1,6 @@
 module ClassConfig
 
-  VERSION = '0.0.1'
+  VERSION = '0.0.2'
 
   def attr_config(name, default_value=nil)
     configuration_defaults[name.to_sym] = default_value
