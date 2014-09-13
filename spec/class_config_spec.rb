@@ -55,4 +55,24 @@ describe ClassConfig do
     Configurable.setting.must_equal :config_block
   end
 
+  it 'After configure callback' do
+    class ConfigCallback
+      extend ClassConfig
+      attr_config :key1
+      attr_config :key2
+
+      after_config do |config|
+        config.key2 = config.key1
+      end
+    end
+
+    ConfigCallback.key2.must_be_nil
+
+    ConfigCallback.configure do |config|
+      config.key1 = :value
+    end
+
+    ConfigCallback.key2.must_equal :value
+  end
+
 end

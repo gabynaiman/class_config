@@ -2,8 +2,6 @@ module ClassConfig
 
   VERSION = '0.0.1'
 
-  alias_method :configure, :tap
-
   def attr_config(name, default_value=nil)
     configuration_defaults[name.to_sym] = default_value
 
@@ -14,6 +12,15 @@ module ClassConfig
     define_singleton_method "#{name}=" do |value|
       configuration_values[name.to_sym] = value
     end
+  end
+
+  def configure(&block)
+    tap &block
+    @after_config_callback.call self if @after_config_callback
+  end
+
+  def after_config(&block)
+    @after_config_callback = block
   end
 
   def configuration
@@ -33,6 +40,5 @@ module ClassConfig
   def configuration_values
     @configuration_values ||= {}
   end
-
 
 end

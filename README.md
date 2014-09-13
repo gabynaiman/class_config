@@ -20,9 +20,14 @@ Or install it yourself as:
 
     class MyClass
       extend ClassConfig
+      
       attr_config :with_default, 'default value'
       attr_config :without_default
       attr_config :setting
+    
+      after_config do |config|
+        # Do something
+      end
     end
 
     MyClass.configure do |config|
