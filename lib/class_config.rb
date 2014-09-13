@@ -31,6 +31,12 @@ module ClassConfig
     configuration_values.clear
   end
 
+  def inherited(subclass)
+    %w(configuration_defaults configuration_values after_config_callback).each do |var|
+      subclass.instance_variable_set "@#{var}", instance_variable_get("@#{var}")
+    end
+  end
+
   private
 
   def configuration_defaults

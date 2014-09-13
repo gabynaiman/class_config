@@ -75,4 +75,10 @@ describe ClassConfig do
     ConfigCallback.key2.must_equal :value
   end
 
+  it 'Inherits configuration' do
+    Child = Class.new(Configurable)
+
+    Child.with_default.must_equal 'default value'
+  end
+
 end
